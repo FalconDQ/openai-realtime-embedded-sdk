@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "main.h"
+#include "local_secrets.h"
 
 static bool g_wifi_connected = false;
 
@@ -42,7 +43,7 @@ void oai_wifi(void) {
   ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
   ESP_ERROR_CHECK(esp_wifi_start());
 
-  ESP_LOGI(LOG_TAG, "Connecting to WiFi SSID: %s", WIFI_SSID);
+  ESP_LOGI(LOG_TAG, "Connecting to WiFi");
   wifi_config_t wifi_config;
   memset(&wifi_config, 0, sizeof(wifi_config));
   strncpy((char *)wifi_config.sta.ssid, (char *)WIFI_SSID,

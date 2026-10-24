@@ -1,9 +1,7 @@
 #include "main.h"
-
 #include <esp_event.h>
 #include <esp_log.h>
 #include <peer.h>
-//TESt
 #ifndef LINUX_BUILD
 #include "nvs_flash.h"
 
@@ -19,7 +17,9 @@ extern "C" void app_main(void) {
   ESP_ERROR_CHECK(esp_event_loop_create_default());
   peer_init();
   oai_init_audio_capture();
+  oai_audio_test_tone();
   oai_init_audio_decoder();
+  oai_start_heartbeat();
   oai_wifi();
   oai_webrtc();
 }

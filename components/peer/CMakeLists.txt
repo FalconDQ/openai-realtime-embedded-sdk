@@ -1,10 +1,20 @@
+# ESP-IDF 6 moved cJSON out of the built-in json component.
+set(PEER_JSON_REQUIREMENT json)
+if(IDF_VERSION_MAJOR GREATER_EQUAL 6)
+  set(PEER_JSON_REQUIREMENT "")
+endif()
 set(PEER_PROJECT_PATH "../../deps/libpeer")
 file(GLOB CODES "${PEER_PROJECT_PATH}/src/*.c")
 
+# Keep upstream submodules untouched; compile tested local transport fixes.
+list(FILTER CODES EXCLUDE REGEX "/(buffer|rtp|peer_connection|dtls_srtp|sctp|agent|stun)\\.c$")
+list(APPEND CODES "overrides/buffer.c" "overrides/rtp.c"
+  "overrides/peer_connection.c" "overrides/dtls_srtp.c" "overrides/sctp.c" "overrides/agent.c" "overrides/stun.c")
+
 idf_component_register(
   SRCS ${CODES}
-  INCLUDE_DIRS "${PEER_PROJECT_PATH}/src"
-  REQUIRES mbedtls srtp json esp_netif
+  INCLUDE_DIRS "${PEER_PROJECT_PATH}/src" "overrides"
+  REQUIRES mbedtls srtp ${PEER_JSON_REQUIREMENT} esp_netif
 )
 
 # Disable KeepAlives

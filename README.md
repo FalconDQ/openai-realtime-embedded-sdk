@@ -19,6 +19,12 @@ has been developed against.
 
 You can get a ESP32S3 for much less money on eBay/AliExpress.
 
+## Local configuration
+
+The root `.env` is loaded automatically for ESP-IDF configuration and builds.
+See [local credential setup and security limits](docs/LOCAL_CONFIGURATION.md).
+Build outputs contain credentials; do not publish them.
+
 ## Installation
 
 Call `set-target` with the platform you are targetting. Today only `linux` and `esp32s3` are supported.

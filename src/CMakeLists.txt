@@ -10,6 +10,8 @@ else()
 		REQUIRES driver esp_wifi nvs_flash peer esp_psram esp-libopus esp_http_client)
 endif()
 
+target_include_directories(${COMPONENT_LIB} PRIVATE "${LOCAL_CONFIG_INCLUDE_DIR}")
+
 idf_component_get_property(lib peer COMPONENT_LIB)
 target_compile_options(${lib} PRIVATE -Wno-error=restrict)
 target_compile_options(${lib} PRIVATE -Wno-error=stringop-truncation)
